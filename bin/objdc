@@ -1,26 +1,19 @@
 #!/usr/bin/env python3
-import os
 import sys
-import yaml
-import argparse
-from objdc import (parse_args, SettingsContext,
-    custom_open_input, custom_open_output, custom_close_input, custom_close_output,
-    custom_load, custom_dump)
-
-yaml.Dumper.ignore_aliases = lambda *args : True
+from objdc import (parse_args, ObjDataConverter)
 
 
 def main():
     args = parse_args(sys.argv)
-    sc = SettingsContext(args)
+    odc = ObjDataConverter(args)
     #confs = sc.get_confs()
     #print_traceback=confs["main"]["print_traceback"]
-    inp_f = custom_open_input(sc)
-    out_f = custom_open_output(sc)
-    obj = custom_load(sc, inp_f)
-    custom_dump(sc, out_f, obj)
-    custom_close_input(sc, inp_f)
-    custom_close_output(sc, out_f)
+    inp_f = odc.custom_open_input()
+    out_f = odc.custom_open_output()
+    obj = odc.custom_load(inp_f)
+    odc.custom_dump(out_f, obj)
+    odc.custom_close_input(inp_f)
+    odc.custom_close_output(out_f)
 
 
 if __name__ == "__main__":
