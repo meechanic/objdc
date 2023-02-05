@@ -201,7 +201,7 @@ class ObjDataConverter:
             t = self.get_type_spec(type_spec, count)
             if t == "shortlink" or t == "longlink":
                 link_text = "link"
-                if t == "shortlink":
+                if t == "longlink":
                     link_text = value
                 value = self.md_linkify(value, link_text)
             res = "{}{}|".format(res, value)
